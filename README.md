@@ -7,6 +7,6 @@
 
 [](France_carte_des_departements.html)
 
-Live demo : 
+Live demo : [here](https://Christophe557.github.io/Carte-de-France)
 
 Technologies used : html, css, javascript
