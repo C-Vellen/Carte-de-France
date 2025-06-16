@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    min-width: 400px;
+    max-width: 1000px;
+}
+
+.titre text {
+    fill: #555;
+}
+
+#carte {
+    width: 85%;
+    margin: 0 auto;
+}
+
+#carte path {
+    stroke: #555;
+    stroke-width: 1px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: #fff;
+    fill-opacity: 0.3;
+    transition: fill 0.2s;
+}
+
+#numero_departements text {
+    fill: #00f;
+    font-size: 10px;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+#nom_departement rect {
+    fill: #fff;
+    stroke: #00f;
+    stroke-width: 2px;
+    radius: 1px;
+    transition: width 0.1s, x 0.1s;
+}
+
+#nom_departement text {
+    fill: #00f;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    font-size: 12px;
+}
