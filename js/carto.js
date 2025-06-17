@@ -13,6 +13,53 @@ const nomPositionX = (x, w) => {
     else { return x }
 }
 
+// correction des positions des numéros pour certains départements
+const correction_positions = {
+    "02": { "dx": 0, "dy": -5 },
+    "07": { "dx": 0, "dy": +15 },
+    "08": { "dx": 0, "dy": +10 },
+    "11": { "dx": 0, "dy": 0 },
+    "13": { "dx": 0, "dy": 0 },
+    "15": { "dx": 0, "dy": 0 },
+    "22": { "dx": -5, "dy": 5 },
+    "25": { "dx": 0, "dy": 0 },
+    "29": { "dx": +7, "dy": -5 },
+    "2A": { "dx": +2, "dy": 0 },
+    "30": { "dx": +10, "dy": 0 },
+    "31": { "dx": +10, "dy": -10 },
+    "41": { "dx": 0, "dy": 10 },
+    "42": { "dx": -10, "dy": 0 },
+    "54": { "dx": -5, "dy": +20 },
+    "56": { "dx": 0, "dy": -5 },
+    "57": { "dx": -5, "dy": 2 },
+    "59": { "dx": +15, "dy": +25 },
+    "61": { "dx": 0, "dy": -5 },
+    "62": { "dx": 0, "dy": +10 },
+    "64": { "dx": 0, "dy": 0 },
+    "66": { "dx": +5, "dy": 5 },
+    "69": { "dx": 0, "dy": +10 },
+    "75": { "dx": +100, "dy": -32 },
+    "80": { "dx": 0, "dy": 5 },
+    "82": { "dx": -2, "dy": 4 },
+    "90": { "dx": +2, "dy": 0 },
+    "92": { "dx": +100, "dy": -10 },
+    "93": { "dx": +110, "dy": -35 },
+    "94": { "dx": +110, "dy": -20 },
+    "95": { "dx": +5, "dy": 5 },
+    "971": { "dx": -5, "dy": +20 },
+    "972": { "dx": -5, "dy": -3 },
+    "976": { "dx": 0, "dy": -8 },
+}
+const correctPosition = (numerodepartement) => {
+    if (Object.keys(correction_positions).includes(numerodepartement)) {
+        console.log("yes")
+        return correction_positions[numerodepartement]
+    } else {
+        console.log("no")
+        return { "dx": 0, "dy": 0 }
+    }
+}
+
 // conversion coordonnées pointeur / coordonnées svg
 const cursorPoint = (e) => {
     const pt = svg.createSVGPoint()
@@ -31,60 +78,11 @@ for (elt of svg.querySelectorAll(".departement")) {
     svg.querySelector("#numero_departements").append(numero)
     numero.textContent = numerodepartement
 
-    // correction des positions des numéros pour certains départements
-    const numPositionX = (nd) => {
-        if (numerodepartement == "29") { return x + 7 }
-        else if (numerodepartement == "22") { return x - 5 }
-        else if (numerodepartement == "2A") { return x + 2 }
-        else if (numerodepartement == "30") { return x + 10 }
-        else if (numerodepartement == "31") { return x + 10 }
-        else if (numerodepartement == "42") { return x - 10 }
-        else if (numerodepartement == "54") { return x - 5 }
-        else if (numerodepartement == "57") { return x - 5 }
-        else if (numerodepartement == "59") { return x + 15 }
-        else if (numerodepartement == "66") { return x + 5 }
-        else if (numerodepartement == "75") { return x + 100 }
-        else if (numerodepartement == "92") { return x + 100 }
-        else if (numerodepartement == "93") { return x + 110 }
-        else if (numerodepartement == "94") { return x + 110 }
-        else if (numerodepartement == "90") { return x + 2 }
-        else if (numerodepartement == "95") { return x + 5 }
-        else if (numerodepartement == "971") { return x - 5 }
-        else if (numerodepartement == "972") { return x - 5 }
-        else { return x }
-    }
-    const numPositionY = (nd) => {
-        if (numerodepartement == "29") { return y - 5 }
-        else if (numerodepartement == "02") { return y - 5 }
-        else if (numerodepartement == "07") { return y + 15 }
-        else if (numerodepartement == "11") { return y }
-        else if (numerodepartement == "13") { return y }
-        else if (numerodepartement == "15") { return y }
-        else if (numerodepartement == "25") { return y }
-        else if (numerodepartement == "31") { return y - 10 }
-        else if (numerodepartement == "54") { return y + 20 }
-        else if (numerodepartement == "56") { return y - 5 }
-        else if (numerodepartement == "59") { return y + 25 }
-        else if (numerodepartement == "61") { return y - 5 }
-        else if (numerodepartement == "62") { return y + 10 }
-        else if (numerodepartement == "64") { return y }
-        else if (numerodepartement == "69") { return y + 10 }
-        else if (numerodepartement == "75") { return y - 32 }
-        else if (numerodepartement == "92") { return y - 10 }
-        else if (numerodepartement == "93") { return y - 35 }
-        else if (numerodepartement == "94") { return y - 20 }
-        else if (numerodepartement == "90") { return y + 0 }
-        else if (numerodepartement == "971") { return y + 20 }
-        else if (numerodepartement == "972") { return y - 3 }
-        else if (numerodepartement == "976") { return y - 8 }
-        else { return y + 5 }
-    }
-    numero.setAttribute("x", numPositionX(numerodepartement))
-    numero.setAttribute("y", numPositionY(numerodepartement))
+    numero.setAttribute("x", x + correctPosition(numerodepartement)["dx"])
+    numero.setAttribute("y", y + correctPosition(numerodepartement)["dy"])
     numero.setAttribute("text-anchor", "middle")
     numero.setAttribute("alignment-baseline", "middle")
 }
-
 
 
 // interactivité avec la carte de France
